@@ -1,0 +1,87 @@
+.calculator{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    background-color: dimgray;
+    border: solid darkgray 2px;
+}
+
+.display{
+    border: darkgray solid 1px;
+    filter: saturate(300%) blur(0.7px);
+    background-color: black;
+    color: green;
+    font-family: monospace;
+    font-size: 36px;
+
+
+    text-align: right;
+    padding-right: 33px;
+    margin: 20px;
+
+    /*vertically align text in the display*/
+    display: flex;    
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;   
+}
+
+.buttons-group{
+    border:lavender solid 1px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height:100%;
+}
+
+.number-buttons-container{
+    border: lawngreen 1px solid;
+
+}
+
+
+/*
+    add shadow on number buttons and change shadow when pressing the button
+    to give the illusion of pressing down the button
+
+    could add border when pressed
+     border:black 2px solid;
+*/
+.number-buttons{
+    list-style-type: none;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 12px;
+    grid-column-gap:12px;
+    padding: 0 20px;
+}
+
+.number-buttons button{
+
+ width: 100%;
+ height: 100%;
+ font-size: 16px;
+}
+
+.operation-buttons-container{
+    border: lightseagreen 1px solid;
+  
+}
+
+.operation-buttons{
+    list-style-type: none;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 17px;
+    grid-column-gap:17px;
+    padding: 0 20px;
+
+   
+}
+
+.operation-buttons button{
+    width: 100%;
+    height: 100%;
+    font-size:24px;
+}
