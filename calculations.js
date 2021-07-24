@@ -1,6 +1,7 @@
 // run the main function when the dom is ready
 document.addEventListener('DOMContentLoaded', main);
 
+//
 function main() {
     //
     console.log('dom is loaded');
@@ -9,16 +10,7 @@ function main() {
     let display = document.querySelector('.display');
 
     //number buttons 
-    let zeroButton = document.querySelector('.zero');
-    let oneButton = document.querySelector('.one');
-    let twoButton = document.querySelector('.two');
-    let threeButton = document.querySelector('.three');
-    let fourButton = document.querySelector('.four');
-    let fiveButton = document.querySelector('.five');
-    let sixButton = document.querySelector('.six');
-    let sevenButton = document.querySelector('.seven');
-    let eightButton = document.querySelector('.eight');
-    let nineButton = document.querySelector('.nine');
+    let numberButtons = document.querySelectorAll('.number-buttons');
 
     //sign
     let signButton = document.querySelector('.sign');
@@ -36,6 +28,20 @@ function main() {
 
     //
     function handleDisplayStates(e) {
+        function changeSignOfNumber(){
+            // check to see if number on display is already negative
+            if (display.textContent[0] == '-') {
+                //display
+                console.log('happy');
+               // it's negative, change it to positve
+               display.textContent = display.textContent.slice(1);
+           } else {
+               // it's positve, change it to negative
+               console.log('sad');
+               display.textContent = `-${display.textContent}`
+           }
+        }
+
         // the code below handles display states for
         // the number sign and decimal point
 
@@ -52,32 +58,58 @@ function main() {
             if (e.target.textContent === '.') {
                 // don't remove the zero just tack on the decimal
                 return display.textContent += e.target.textContent;
-            } else {
+            } else if (e.target.textContent === '+/-'){
+                return changeSignOfNumber();
+            }else {
                 // if not a decimal then replace default text
                 display.textContent = display.textContent.replace(display.textContent, '');
                 return display.textContent = e.target.textContent;
             }
         } else {
+            // not default display
+            
+            // if there is not decimal add one at the end
+            // there is no decimal add it to the end
+        //will only add a decimal point if there isn't one present
+        
+
             // check for leading zero
             if (display.textContent == '0') {
                 // if adding a decimal to the default display
-                if (e.target.textContent === '.') {
+                if (e.target.textContent === '.' && !(display.textContent.includes('.')) ) {
                     // don't remove the zero just tack on the decimal
                     return display.textContent += e.target.textContent;
+                } else if(e.target.textContent === '+/-'){
+                    //
+                    return changeSignOfNumber();
                 } else {
                     // if not a decimal then replace default text
                     display.textContent = display.textContent.replace(display.textContent, '');
                     return display.textContent = e.target.textContent;
                 }
             } else {
+                //not leading zero
+                if(e.target.textContent === '+/-'){
+                    console.log('enter?')
+                    return changeSignOfNumber();
+                }
+
+                // waiting for a new number to be entered
                 if(isWaitingForNextNumber){
                     display.textContent = display.textContent.replace(display.textContent, '');
                     isWaitingForNextNumber = false;
                     return display.textContent = e.target.textContent;
-                } else {
+                } else if (e.target.textContent === '.'){
+                    if(!(display.textContent.includes('.'))){
+                        // don't remove the zero just tack on the decimal
+                        return display.textContent += e.target.textContent;
+                    }
+                }else {  
+                    //not waiting for a new number to be entered
                     return display.textContent += e.target.textContent;
                 }
             }
+
         }
         // might need to add conditional for sign button...
         
@@ -95,77 +127,14 @@ function main() {
 
     //todo: could shorten this code...
     //event listeners for the number buttons
-    zeroButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-
-    });
-
-    oneButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    twoButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    threeButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    fourButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    fiveButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    sixButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    sevenButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    eightButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    nineButton.addEventListener('click', (e) => {
-        displayValue = handleDisplayStates(e);
-    });
-
-    /*
-     could move the conditionals 
-     to the handle states function.
-     and split into a sub function. 
-     */
-    signButton.addEventListener('click', (e) => {
-        // check to see if number on display is already negative
-        if (display.textContent[0] == '-') {
-            // it's negative, change it to positve
-            display.textContent = display.textContent.slice(1);
-        } else {
-            // it's positve, change it to negative
-            display.textContent = `-${display.textContent}`
-        }
-    });
-
-    /*
-     could move the conditionals 
-     to the handle states function.
-     and split into a sub function. 
-     */
-    decimalPointButton.addEventListener('click', (e) => {
-        console.log(e.target.textContent);
-        // if there is not decimal add one at the end
-        if (!(display.textContent.includes(e.target.textContent))) {
-            // there is no decimal add it to the end
+    for(let numberButton of numberButtons){
+        numberButton.addEventListener('click', (e) => {
+            console.log(e.target.textContent)
+            //
             displayValue = handleDisplayStates(e);
-        }
-        //will only add a decimal point if there isn't one present
-    });
+            
+        });
+    }
 
     //handle operations
     /*
