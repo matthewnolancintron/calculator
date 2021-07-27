@@ -147,13 +147,19 @@ function main() {
     //event listeners for the number buttons
     for(let numberButton of numberButtons){
         numberButton.addEventListener('click', (e) => {
-            // working of fixing an issue...
-            //console.log(e.target.textContent)
-            //
-            e.stopPropagation();
-            displayValue = handleDisplayStates(e);
-            console.log('a');
-
+            
+            // console.log(e.target);
+            // console.log(numberButtons[0]);
+            
+            // prevent parent element from calling 
+            // the event on all of the number buttons
+            // when clicked
+            if(e.target == numberButtons[0]){
+                return;
+            } else{
+                //
+                displayValue = handleDisplayStates(e);
+            }
         });
     }
 
@@ -178,6 +184,16 @@ function main() {
     // handles events for the operation buttons
     for(let operationButton of operationButtons){
         operationButton.addEventListener('click', (e) => {
+            // console.log(e.target);
+            // console.log(operationButtons[0]);
+
+            //prevent parent element the container
+            // from call the event on all the operation
+            // buttons
+            if(e.target == operationButtons[0]){
+                return;
+            }
+
             //
             if(display.textContent == snarkyDivideByZeroMessage){
                 if(e.target.textContent == 'clear'){
@@ -229,12 +245,10 @@ function main() {
                 
                 if(displayArray.length == 1 && displayArray[0] != '0'){
                     console.log(displayArray);
-                    console.log('a');
                      display.textContent = '0';
                 }
 
                 if(displayArray.length > 1){
-                    console.log('1')
                     displayArray.pop();
                     console.log(displayArray)
                     console.log(displayArray.join(''))
@@ -285,7 +299,7 @@ function main() {
             //current operation has a number and operator
             if(currentOperation.length === 2) {
                 //divide by zero
-                if(display.textContent == '0' && currentOperation[1] == '/'){
+                if(display.textContent == '0' && currentOperation[1] == '/' && isWaitingForNextNumber == false){
                     display.textContent = snarkyDivideByZeroMessage;
                     isWaitingForNextNumber = true;
                     currentOperation.length = 0;
@@ -357,6 +371,10 @@ function main() {
                         same sign repeated:
                         do nothing
                         */
+                        if(e.target.textContent == currentOperation[1]){
+                            console.log('same');
+                            return;
+                        }
                         return; // exit
                     }
 
