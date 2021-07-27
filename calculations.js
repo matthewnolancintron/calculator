@@ -1,21 +1,5 @@
 // run the main function when the dom is ready
 document.addEventListener('DOMContentLoaded', main);
-
-/*
-todo: fix
-    there is a bug where the space between the number keys
-    are pressed than all digits signs and decimal are added
-    to the display:
-    I'm still trying to figure how to fix this.
-
-    a similar issue for when pressing the space inbetween
-    the operation keys
- */
-
-
-//todo: Add a “backspace” button,
-// so the user can undo if they click the wrong number.
-
 //todo: Add keyboard support!
 
 
@@ -162,6 +146,92 @@ function main() {
             }
         });
     }
+    
+    document.addEventListener('keydown', (e)=> {
+        //console.log(numberButtons[0]);
+       console.log(`Event key: ${e.key}`);
+       // console.log(`Event Code: ${e.code}`);
+        e.preventDefault();
+        //ctrl+r doesn't refresh the page anymore,
+        //todo: fix issue above.
+
+        switch (e.key) {
+            case '0' || 'Numpad0':
+                console.log("zero");
+                numberButtons[0].childNodes[1].childNodes[1].click();
+                break;
+            case '1' || 'Numpad1':
+                console.log("one");
+                numberButtons[0].childNodes[3].childNodes[1].click();
+                break;
+            case '2' || 'Numpad2':
+                console.log("two");
+                numberButtons[0].childNodes[5].childNodes[1].click();
+                break;
+            case '3' || 'NumPad3':
+                console.log("three");
+                numberButtons[0].childNodes[7].childNodes[1].click();
+                break;
+            case '4' || 'Numpad4':
+                console.log("four");
+                numberButtons[0].childNodes[9].childNodes[1].click();
+                break;
+            case '5' || 'Numpad5':
+                console.log("five");
+                numberButtons[0].childNodes[11].childNodes[1].click();
+                break;
+            case '6' || 'Numpad6':
+                console.log("six");
+                numberButtons[0].childNodes[13].childNodes[1].click();
+                break;
+            case '7' || 'Numpad7':
+                console.log("seven");
+                numberButtons[0].childNodes[15].childNodes[1].click();
+                break;
+            case '8' || 'Numpad8':
+                console.log("eight");
+                numberButtons[0].childNodes[17].childNodes[1].click();
+                break;
+            case '9' || 'Numpad9':
+                console.log('nine');
+                numberButtons[0].childNodes[19].childNodes[1].click();
+                break;
+            case '+':
+                console.log('plus');
+                operationButtons[0].childNodes[1].childNodes[1].click();
+                break;
+            case '-':
+                console.log('minus');
+                operationButtons[0].childNodes[3].childNodes[1].click();
+                break;
+            case '*':
+                console.log('times');
+                operationButtons[0].childNodes[7].childNodes[1].click();
+                break;
+            case '/':
+                console.log('divides');
+                operationButtons[0].childNodes[9].childNodes[1].click();
+                break;
+            case '=' || 'Enter':
+                console.log('equals');
+                operationButtons[0].childNodes[13].childNodes[1].click();
+                break;
+            case 'Backspace':
+                //5 is del
+                console.log('backspace');
+                operationButtons[0].childNodes[5].childNodes[1].click();
+                break;
+            case 'c':
+                //11 is clear
+                console.log('clear');
+                operationButtons[0].childNodes[11].childNodes[1].click();
+                break;
+            default:
+                e.preventDefault();
+                break;
+        }
+        console.log(operationButtons[0].childNodes[13].childNodes)
+    });
 
     //handle operations
     /*
