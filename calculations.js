@@ -1,6 +1,24 @@
 // run the main function when the dom is ready
 document.addEventListener('DOMContentLoaded', main);
 
+/*
+todo: fix
+    there is a bug where the space between the number keys
+    are pressed than all digits signs and decimal are added
+    to the display:
+    I'm still trying to figure how to fix this.
+
+    a similar issue for when pressing the space inbetween
+    the operation keys
+ */
+
+
+//todo: Add a “backspace” button,
+// so the user can undo if they click the wrong number.
+
+//todo: Add keyboard support!
+
+
 //
 function main() {
     //
@@ -129,10 +147,13 @@ function main() {
     //event listeners for the number buttons
     for(let numberButton of numberButtons){
         numberButton.addEventListener('click', (e) => {
-            console.log(e.target.textContent)
+            // working of fixing an issue...
+            //console.log(e.target.textContent)
             //
+            e.stopPropagation();
             displayValue = handleDisplayStates(e);
-            
+            console.log('a');
+
         });
     }
 
@@ -178,9 +199,63 @@ function main() {
                 currentOperation.length = 0;
             }
 
+            //
+            function backspace(){
+                //console.log(typeof display.textContent)
+                /*
+                    get the text from the display
+                    store it as an array
+                    pop off the last index of the array
+                    then convert back to a string and
+                    use it to update the display
+
+                    conditionals to add:
+                    if the array only has 1 index
+                    and the value of the item at the index
+                    is zero then do nothing just exit the
+                    function
+
+                    if the array has only 1 index but the 
+                    value of the item at index 1 is not zero
+                    then make it zero and exit the function
+                 */
+                console.log(display.textContent)
+                let displayArray = display.textContent.split('');
+                //console.log(displayArray);
+
+                if(displayArray.length == 1 && displayArray[0] == '0'){
+                    return;
+                }
+                
+                if(displayArray.length == 1 && displayArray[0] != '0'){
+                    console.log(displayArray);
+                    console.log('a');
+                     display.textContent = '0';
+                }
+
+                if(displayArray.length > 1){
+                    console.log('1')
+                    displayArray.pop();
+                    console.log(displayArray)
+                    console.log(displayArray.join(''))
+                    display.textContent = displayArray.join('');
+                }
+
+
+
+            }
+
+            //
             if(e.target.textContent == 'clear'){
                 clear();
                 // exit
+                return;
+            }
+
+            //
+            if(e.target.textContent =='del'){
+                //
+                backspace();
                 return;
             }
 
