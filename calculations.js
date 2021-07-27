@@ -1,7 +1,14 @@
 // run the main function when the dom is ready
 document.addEventListener('DOMContentLoaded', main);
-//todo: Add keyboard support!
+/*
+    todo:
 
+    0:
+    add super script element showing the current equation
+    for added visual feedback
+
+    
+ */
 
 //
 function main() {
